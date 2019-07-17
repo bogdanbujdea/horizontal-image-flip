@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using Android.Graphics;
 
 namespace Plugin.HorizontalImageFlip
 {
@@ -9,9 +10,26 @@ namespace Plugin.HorizontalImageFlip
     /// </summary>
     public class HorizontalImageFlipImplementation : IHorizontalImageFlip
     {
-        public string GetText()
+        public byte[] FlipImage(byte[] imageBytes)
         {
-            return "Hello from Android";
+            var bitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+            var bitmapDrawable = Flip(bitmap);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmapDrawable.Compress(Bitmap.CompressFormat.Jpeg, 100, ms);
+
+                bitmapDrawable.Recycle();
+
+                return ms.ToArray();
+            }
+        }
+
+        Bitmap Flip(Bitmap d)
+        {
+            Matrix m = new Matrix();
+            m.PreScale(-1, 1);
+            Bitmap dst = Bitmap.CreateBitmap(d, 0, 0, d.Width, d.Height, m, false);
+            return dst;
         }
     }
 }

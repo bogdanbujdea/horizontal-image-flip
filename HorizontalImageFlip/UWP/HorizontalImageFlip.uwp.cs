@@ -2,9 +2,9 @@
 {
     public class HorizontalImageFlipImplementation : IHorizontalImageFlip
     {
-        public string GetText()
+        public byte[] FlipImage(byte[] imageBytes)
         {
-            return "Hello from UWP";
+            return imageBytes;
         }
     }
 }

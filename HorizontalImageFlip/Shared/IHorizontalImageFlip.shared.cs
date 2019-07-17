@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Plugin.HorizontalImageFlip
+﻿namespace Plugin.HorizontalImageFlip
 {
     public interface IHorizontalImageFlip
     {
-        string GetText();
+        byte[] FlipImage(byte[] imageBytes);
     }
 }

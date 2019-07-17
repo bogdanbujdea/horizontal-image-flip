@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using UIKit;
 
 namespace Plugin.HorizontalImageFlip
 {
@@ -9,9 +7,10 @@ namespace Plugin.HorizontalImageFlip
     /// </summary>
     public class HorizontalImageFlipImplementation : IHorizontalImageFlip
     {
-        public string GetText()
+        public byte[] FlipImage(byte[] imageBytes)
         {
-            return "Hello from iOS";
+            UIImage originalImage = new UIImage(Foundation.NSData.FromArray(imageBytes));
+            return originalImage.GetImageWithHorizontallyFlippedOrientation().AsJPEG().ToArray();
         }
     }
 }
